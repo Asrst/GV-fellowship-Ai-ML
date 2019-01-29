@@ -1,0 +1,999 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Aug17\_Adda Satya Ram\_SocialNetworkAds}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \subsubsection{Social Network Ads data has 4 variables: UserID, Gender,
+Age, Estimated Salary as features and Purchase being the target variable
+- A typical classification problem with two classes - whether Ads were
+purchased(1) or
+not(0).}\label{social-network-ads-data-has-4-variables-userid-gender-age-estimated-salary-as-features-and-purchase-being-the-target-variable---a-typical-classification-problem-with-two-classes---whether-ads-were-purchased1-or-not0.}
+
+\subsubsection{We are going to use SVM for this
+dataset.}\label{we-are-going-to-use-svm-for-this-dataset.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{}import libraries}
+        \PY{k+kn}{import} \PY{n+nn}{os}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{scipy} \PY{k}{as} \PY{n+nn}{sp}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+        \PY{k+kn}{import} \PY{n+nn}{math} \PY{k}{as} \PY{n+nn}{m}
+        \PY{k+kn}{import} \PY{n+nn}{xlrd}
+        \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k}{import} \PY{n}{stats}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{datasets}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} set work directory}
+        \PY{n}{path} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{getcwd}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} get the data sets}
+        \PY{n}{idata}  \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{n+nb}{str}\PY{p}{(}\PY{n}{path}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/svm\PYZus{}useCase.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{itrain} \PY{o}{=} \PY{n}{idata}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{User ID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{itrain}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Gender}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{itrain}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Gender}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Female}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{0}\PY{p}{\PYZcb{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{itrain}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{p}{[}\PY{n}{x}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:} Gender                                                 (2, [[1, 0]])
+        Age                (43, [[19, 35, 26, 27, 32, 25, 20, 18, 29, 47,{\ldots}
+        EstimatedSalary    (117, [[19000, 20000, 43000, 57000, 76000, 580{\ldots}
+        Purchased                                              (2, [[0, 1]])
+        dtype: object
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{itrain}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:}            Gender         Age  EstimatedSalary   Purchased
+        count  400.000000  400.000000       400.000000  400.000000
+        mean     0.490000   37.655000     69742.500000    0.357500
+        std      0.500526   10.482877     34096.960282    0.479864
+        min      0.000000   18.000000     15000.000000    0.000000
+        25\%      0.000000   29.750000     43000.000000    0.000000
+        50\%      0.000000   37.000000     70000.000000    0.000000
+        75\%      1.000000   46.000000     88000.000000    1.000000
+        max      1.000000   60.000000    150000.000000    1.000000
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{itrain}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} array([[<matplotlib.axes.\_subplots.AxesSubplot object at 0x7ff00bc34d68>,
+                <matplotlib.axes.\_subplots.AxesSubplot object at 0x7ff004892518>],
+               [<matplotlib.axes.\_subplots.AxesSubplot object at 0x7ff00484e198>,
+                <matplotlib.axes.\_subplots.AxesSubplot object at 0x7ff0047fde48>]],
+              dtype=object)
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EstimatedSalary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Purchased}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data} \PY{o}{=} \PY{n}{itrain}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} <matplotlib.collections.PathCollection at 0x7ff0046ce748>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Gender}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Purchased}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data} \PY{o}{=} \PY{n}{itrain}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}24}]:} <matplotlib.collections.PathCollection at 0x7ff000103208>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{cx} \PY{o}{=} \PY{n}{itrain}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Purchased}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{p}{)}
+         \PY{n}{cx}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Purchased(1)/not(0)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} Text(0.5,0,'Purchased(1)/not(0)')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_11_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{itrain} \PY{o}{=} \PY{n}{itrain}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+         \PY{k+kn}{from} \PY{n+nn}{mpl\PYZus{}toolkits} \PY{k}{import} \PY{n}{mplot3d}
+         \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{axes}\PY{p}{(}\PY{n}{projection}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{3d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{scatter3D}\PY{p}{(}\PY{n}{itrain}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{itrain}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EstimatedSalary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{itrain}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Gender}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{n}{itrain}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Purchased}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RdYlGn}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{D}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Salary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}zlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Gender}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} Text(0.5,0,'Gender')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Purchased}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Purchased}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data} \PY{o}{=} \PY{n}{itrain}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:} <matplotlib.collections.PathCollection at 0x7ff00451d080>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_13_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Purchased}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EstimatedSalary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Purchased}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data} \PY{o}{=} \PY{n}{itrain}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} <matplotlib.collections.PathCollection at 0x7ff00b983cf8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{data} \PY{o}{=} \PY{n}{itrain}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EstimatedSalary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7ff00484eef0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{predictors} \PY{o}{=} \PY{n}{itrain}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Purchased}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{target} \PY{o}{=} \PY{n}{itrain}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Purchased}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{}importing packages from sk learn}
+         \PY{c+c1}{\PYZsh{}from sklearn.ensemble import RandomForestClassifier}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{roc\PYZus{}auc\PYZus{}score}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{feature\PYZus{}selection} \PY{k}{import} \PY{n}{RFE}
+         
+         
+         \PY{c+c1}{\PYZsh{}FUNCTION for Train \PYZam{} Validation set}
+         \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{predictors}\PY{p}{,} \PY{n}{target}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,} 
+                                                             \PY{n}{random\PYZus{}state} \PY{o}{=} \PY{l+m+mi}{7}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{c+c1}{\PYZsh{}Scaler}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{StandardScaler}
+         \PY{n}{sc} \PY{o}{=} \PY{n}{StandardScaler}\PY{p}{(}\PY{p}{)}
+         \PY{n}{X\PYZus{}train1} \PY{o}{=} \PY{n}{sc}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}
+         \PY{n}{X\PYZus{}test1} \PY{o}{=} \PY{n}{sc}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}28}]:}      Gender  Age  EstimatedSalary
+         270       0   43           133000
+         98        1   35            73000
+         81        1   39            42000
+         50        0   24            32000
+         244       0   41            72000
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{X\PYZus{}train1}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}26}]:} array([[-0.96922337,  0.5118008 ,  1.80675605],
+                [ 1.03175391, -0.24032896,  0.09003827],
+                [ 1.03175391,  0.13573592, -0.79693258],
+                [-0.96922337, -1.27450738, -1.08305221],
+                [-0.96922337,  0.32376836,  0.06142631],
+                [ 1.03175391,  0.22975214,  0.03281435],
+                [-0.96922337,  0.32376836, -1.14027614],
+                [-0.96922337,  1.07589811, -0.88276847],
+                [-0.96922337, -0.24032896, -1.34055988],
+                [-0.96922337,  0.41778458,  0.57644164],
+                [ 1.03175391, -1.74458847,  0.43338183],
+                [ 1.03175391,  0.41778458, -0.45358903],
+                [-0.96922337,  0.69983323,  1.74953213],
+                [-0.96922337,  1.54597921, -1.25472399],
+                [-0.96922337, -0.33434518,  0.06142631],
+                [ 1.03175391,  0.32376836,  0.26171005],
+                [ 1.03175391, -1.27450738, -1.45500773],
+                [ 1.03175391, -0.05229652,  0.26171005],
+                [-0.96922337, -1.83860469,  0.46199379],
+                [ 1.03175391, -0.8984425 , -0.31052921],
+                [-0.96922337,  0.60581701,  1.97842783],
+                [-0.96922337, -0.71041006, -0.22469332],
+                [ 1.03175391,  0.22975214, -0.36775314],
+                [ 1.03175391, -0.14631274,  1.37757661],
+                [-0.96922337, -0.8984425 , -0.9399924 ],
+                [-0.96922337,  1.16991433, -0.73970866],
+                [-0.96922337, -1.83860469, -0.05302154],
+                [ 1.03175391, -0.80442628,  0.29032201],
+                [-0.96922337,  0.32376836,  0.06142631],
+                [ 1.03175391, -0.14631274,  2.12148765],
+                [-0.96922337,  1.92204409, -0.91138043],
+                [ 1.03175391, -1.27450738, -0.42497706],
+                [ 1.03175391, -0.71041006, -0.59664884],
+                [-0.96922337, -1.08647494, -0.76832062],
+                [-0.96922337, -1.3685236 , -0.11024547],
+                [ 1.03175391,  0.98188189,  2.03565176],
+                [ 1.03175391, -0.80442628,  0.1472622 ],
+                [-0.96922337,  1.26393055,  1.83536802],
+                [-0.96922337, -0.33434518, -0.76832062],
+                [-0.96922337,  1.92204409,  0.89117324],
+                [-0.96922337, -0.4283614 ,  1.23451679],
+                [-0.96922337,  1.54597921,  0.97700913],
+                [-0.96922337, -1.74458847, -1.39778381],
+                [ 1.03175391,  0.32376836, -0.51081295],
+                [ 1.03175391,  0.41778458,  0.09003827],
+                [ 1.03175391,  0.88786567, -1.28333595],
+                [ 1.03175391,  1.73401165,  1.80675605],
+                [-0.96922337, -0.14631274, -0.45358903],
+                [ 1.03175391, -0.24032896, -0.91138043],
+                [ 1.03175391, -1.08647494,  0.31893398],
+                [ 1.03175391,  1.82802787, -0.28191725],
+                [-0.96922337, -0.52237762,  0.46199379],
+                [-0.96922337, -0.05229652, -1.05444025],
+                [ 1.03175391, -1.18049116,  0.29032201],
+                [-0.96922337, -1.55655604, -0.05302154],
+                [ 1.03175391, -1.74458847,  0.00420238],
+                [-0.96922337,  0.13573592, -0.31052921],
+                [ 1.03175391, -1.74458847, -1.28333595],
+                [-0.96922337, -0.24032896,  0.06142631],
+                [ 1.03175391,  0.79384945, -1.19750007],
+                [ 1.03175391, -0.14631274,  1.57786035],
+                [ 1.03175391,  0.69983323, -1.36917184],
+                [-0.96922337, -1.27450738, -0.42497706],
+                [ 1.03175391, -0.24032896, -0.88276847],
+                [-0.96922337,  0.0417197 , -0.42497706],
+                [-0.96922337,  1.07589811,  2.03565176],
+                [ 1.03175391,  0.41778458,  2.26454746],
+                [-0.96922337, -1.08647494, -1.56945558],
+                [ 1.03175391,  0.22975214,  0.1472622 ],
+                [-0.96922337,  2.01606031, -0.79693258],
+                [ 1.03175391, -0.8984425 ,  1.52063642],
+                [-0.96922337,  1.54597921,  1.09145698],
+                [-0.96922337,  0.22975214,  0.1472622 ],
+                [ 1.03175391, -0.05229652, -0.42497706],
+                [-0.96922337,  0.79384945, -1.08305221],
+                [ 1.03175391,  0.22975214, -0.25330529],
+                [ 1.03175391, -1.08647494,  0.46199379],
+                [ 1.03175391, -0.24032896,  0.26171005],
+                [-0.96922337, -0.80442628,  0.3761579 ],
+                [-0.96922337, -0.05229652,  0.23309809],
+                [-0.96922337,  0.13573592, -0.25330529],
+                [-0.96922337,  1.45196299,  2.09287568],
+                [-0.96922337,  1.82802787, -1.05444025],
+                [-0.96922337, -0.71041006,  1.32035268],
+                [ 1.03175391,  0.98188189, -1.05444025],
+                [ 1.03175391,  1.92204409,  2.12148765],
+                [ 1.03175391, -0.24032896,  0.06142631],
+                [-0.96922337, -0.61639384,  0.03281435],
+                [ 1.03175391, -1.27450738, -1.34055988],
+                [ 1.03175391,  0.32376836,  0.06142631],
+                [ 1.03175391,  0.79384945, -1.34055988],
+                [-0.96922337,  1.35794677,  0.57644164],
+                [-0.96922337,  1.73401165,  0.97700913],
+                [ 1.03175391,  0.41778458, -0.13885743],
+                [-0.96922337,  0.98188189,  1.74953213],
+                [-0.96922337, -0.8984425 ,  0.49060575],
+                [ 1.03175391,  0.22975214,  0.23309809],
+                [-0.96922337,  1.63999543,  1.72092016],
+                [-0.96922337,  0.5118008 ,  1.20590483],
+                [ 1.03175391,  0.79384945,  0.51921772],
+                [ 1.03175391, -1.18049116,  0.49060575],
+                [-0.96922337,  1.35794677, -0.91138043],
+                [-0.96922337, -0.80442628, -1.19750007],
+                [-0.96922337,  1.45196299,  0.34754594],
+                [ 1.03175391, -0.05229652,  2.12148765],
+                [-0.96922337, -0.61639384, -0.05302154],
+                [-0.96922337, -0.4283614 , -1.19750007],
+                [-0.96922337, -0.99245872, -1.51223166],
+                [ 1.03175391, -0.52237762,  0.86256127],
+                [-0.96922337,  1.35794677, -1.39778381],
+                [-0.96922337, -1.08647494, -0.51081295],
+                [-0.96922337, -0.33434518, -1.28333595],
+                [ 1.03175391,  0.13573592,  1.03423305],
+                [ 1.03175391, -0.05229652,  0.1472622 ],
+                [ 1.03175391,  0.22975214, -0.36775314],
+                [ 1.03175391, -1.08647494, -1.08305221],
+                [-0.96922337,  0.13573592,  1.83536802],
+                [-0.96922337, -0.4283614 , -0.28191725],
+                [ 1.03175391, -1.18049116,  0.26171005],
+                [ 1.03175391, -0.24032896, -0.25330529],
+                [ 1.03175391,  0.69983323,  0.26171005],
+                [ 1.03175391,  1.54597921,  0.00420238],
+                [-0.96922337, -0.24032896, -0.65387277],
+                [ 1.03175391, -0.71041006, -1.51223166],
+                [ 1.03175391, -0.71041006,  0.54782968],
+                [-0.96922337, -0.52237762,  2.29315942],
+                [-0.96922337,  0.98188189, -0.99721632],
+                [-0.96922337,  1.16991433,  0.51921772],
+                [-0.96922337, -0.05229652,  1.92120391],
+                [-0.96922337, -0.61639384, -1.02582829],
+                [-0.96922337, -1.08647494,  1.37757661],
+                [-0.96922337, -0.24032896, -0.36775314],
+                [ 1.03175391, -1.18049116, -1.05444025],
+                [ 1.03175391,  0.79384945, -0.31052921],
+                [-0.96922337,  0.88786567, -1.14027614],
+                [ 1.03175391, -0.05229652,  0.20448612],
+                [-0.96922337,  0.0417197 ,  1.23451679],
+                [ 1.03175391, -1.46253982, -1.4836197 ],
+                [-0.96922337,  0.88786567, -0.65387277],
+                [-0.96922337,  2.01606031,  0.3761579 ],
+                [ 1.03175391, -1.65057225, -0.59664884],
+                [-0.96922337,  0.79384945, -0.82554455],
+                [ 1.03175391, -0.24032896, -0.33914117],
+                [-0.96922337,  0.41778458,  0.00420238],
+                [-0.96922337, -0.14631274, -0.56803688],
+                [ 1.03175391, -0.71041006,  1.86397998],
+                [-0.96922337,  0.22975214,  2.06426372],
+                [-0.96922337,  1.26393055,  2.17871157],
+                [-0.96922337, -0.99245872,  1.92120391],
+                [ 1.03175391, -0.24032896, -1.42639577],
+                [ 1.03175391, -0.33434518,  1.29174072],
+                [-0.96922337,  0.98188189, -1.14027614],
+                [ 1.03175391, -0.52237762, -1.4836197 ],
+                [-0.96922337,  2.01606031, -1.1688881 ],
+                [-0.96922337, -0.24032896, -0.13885743],
+                [-0.96922337, -0.99245872,  0.74811342],
+                [-0.96922337,  1.92204409,  0.71950146],
+                [ 1.03175391,  0.98188189,  0.57644164],
+                [-0.96922337,  2.11007653, -0.68248473],
+                [-0.96922337, -0.24032896, -0.73970866],
+                [ 1.03175391, -0.99245872,  0.57644164],
+                [-0.96922337, -0.24032896, -1.28333595],
+                [ 1.03175391,  0.13573592,  0.03281435],
+                [ 1.03175391,  1.07589811,  0.51921772],
+                [-0.96922337, -0.24032896,  0.77672538],
+                [ 1.03175391,  0.69983323, -1.08305221],
+                [-0.96922337,  1.45196299,  0.97700913],
+                [ 1.03175391, -0.24032896,  0.1472622 ],
+                [ 1.03175391, -0.80442628,  2.2359355 ],
+                [ 1.03175391, -1.3685236 , -1.42639577],
+                [ 1.03175391, -1.18049116,  0.57644164],
+                [ 1.03175391,  2.11007653,  0.9197852 ],
+                [-0.96922337,  0.88786567,  1.23451679],
+                [ 1.03175391, -0.14631274, -0.51081295],
+                [-0.96922337, -1.55655604, -1.54084362],
+                [-0.96922337, -1.46253982, -1.22611203],
+                [-0.96922337,  0.13573592,  0.26171005],
+                [ 1.03175391, -0.52237762,  1.43480053],
+                [-0.96922337, -0.24032896,  2.20732354],
+                [-0.96922337, -1.65057225,  0.34754594],
+                [ 1.03175391, -0.05229652,  0.11865023],
+                [ 1.03175391, -0.24032896, -1.36917184],
+                [-0.96922337,  2.01606031,  0.17587416],
+                [ 1.03175391, -0.05229652,  0.06142631],
+                [ 1.03175391,  2.11007653,  0.3761579 ],
+                [ 1.03175391,  0.88786567,  1.00562109],
+                [ 1.03175391, -1.08647494, -1.14027614],
+                [-0.96922337, -0.61639384,  1.37757661],
+                [ 1.03175391, -0.05229652, -0.48220099],
+                [-0.96922337,  1.63999543,  1.57786035],
+                [-0.96922337,  1.35794677,  1.94981587],
+                [ 1.03175391, -1.83860469, -0.51081295],
+                [ 1.03175391,  0.88786567, -1.02582829],
+                [ 1.03175391,  0.41778458, -0.1674694 ],
+                [-0.96922337, -0.8984425 ,  0.43338183],
+                [-0.96922337,  1.07589811, -0.96860436],
+                [-0.96922337, -0.52237762,  1.34896464],
+                [ 1.03175391, -1.55655604,  0.06142631],
+                [-0.96922337, -0.61639384,  0.54782968],
+                [ 1.03175391, -0.99245872, -0.33914117],
+                [ 1.03175391,  0.69983323, -1.25472399],
+                [-0.96922337,  0.0417197 ,  1.20590483],
+                [ 1.03175391, -0.14631274, -0.28191725],
+                [-0.96922337, -1.08647494, -0.99721632],
+                [-0.96922337, -0.8984425 , -0.42497706],
+                [ 1.03175391,  0.32376836, -0.51081295],
+                [-0.96922337, -0.14631274,  1.60647231],
+                [ 1.03175391,  0.88786567, -0.76832062],
+                [ 1.03175391, -1.27450738,  0.40476986],
+                [-0.96922337, -0.05229652, -0.36775314],
+                [ 1.03175391, -0.05229652,  0.00420238],
+                [ 1.03175391, -0.61639384, -1.4836197 ],
+                [-0.96922337, -0.80442628, -0.65387277],
+                [ 1.03175391, -1.08647494, -1.54084362],
+                [ 1.03175391, -0.99245872,  0.51921772],
+                [-0.96922337, -1.65057225, -0.96860436],
+                [-0.96922337,  0.79384945, -1.36917184],
+                [ 1.03175391, -1.3685236 , -0.19608136],
+                [-0.96922337,  0.79384945,  0.11865023],
+                [-0.96922337,  0.0417197 , -0.13885743],
+                [ 1.03175391, -1.08647494,  0.29032201],
+                [-0.96922337, -1.46253982, -0.42497706],
+                [-0.96922337,  0.13573592,  0.1472622 ],
+                [-0.96922337, -1.65057225,  0.34754594],
+                [-0.96922337, -0.05229652,  0.66227753],
+                [ 1.03175391, -0.4283614 , -1.11166418],
+                [-0.96922337, -0.99245872, -1.11166418],
+                [-0.96922337,  2.11007653,  1.09145698],
+                [ 1.03175391, -0.71041006, -1.56945558],
+                [-0.96922337, -0.99245872, -0.33914117],
+                [-0.96922337,  1.92204409, -1.34055988],
+                [ 1.03175391,  0.79384945,  1.34896464],
+                [-0.96922337,  0.41778458,  0.26171005],
+                [-0.96922337,  0.22975214, -0.28191725],
+                [ 1.03175391, -0.24032896, -1.22611203],
+                [-0.96922337,  0.0417197 , -0.56803688],
+                [ 1.03175391,  0.0417197 ,  0.03281435],
+                [-0.96922337,  0.32376836, -0.53942492],
+                [ 1.03175391, -0.24032896, -0.31052921],
+                [-0.96922337,  0.13573592,  0.03281435],
+                [ 1.03175391,  2.11007653, -1.02582829],
+                [ 1.03175391, -0.99245872,  0.54782968],
+                [ 1.03175391, -1.65057225,  0.46199379],
+                [ 1.03175391,  2.11007653, -0.79693258],
+                [-0.96922337, -0.99245872, -0.45358903],
+                [-0.96922337,  0.32376836,  0.03281435],
+                [ 1.03175391, -0.24032896,  0.1472622 ],
+                [ 1.03175391,  0.32376836, -0.31052921],
+                [-0.96922337,  0.88786567, -0.59664884],
+                [ 1.03175391, -0.24032896,  0.51921772],
+                [ 1.03175391, -0.61639384, -0.33914117],
+                [-0.96922337,  0.88786567,  1.06284501],
+                [-0.96922337,  0.41778458,  0.29032201],
+                [-0.96922337,  0.69983323, -0.71109669],
+                [-0.96922337, -0.05229652, -0.22469332],
+                [ 1.03175391, -0.24032896, -0.48220099],
+                [-0.96922337, -0.8984425 , -0.73970866],
+                [-0.96922337,  0.41778458, -0.48220099],
+                [ 1.03175391, -1.74458847,  0.17587416],
+                [-0.96922337,  0.98188189, -1.1688881 ],
+                [ 1.03175391,  2.01606031,  2.09287568],
+                [ 1.03175391,  1.26393055, -1.34055988],
+                [ 1.03175391, -1.65057225,  0.11865023],
+                [-0.96922337, -0.24032896, -0.28191725],
+                [-0.96922337,  1.82802787,  1.49202446],
+                [ 1.03175391, -0.14631274,  0.83394931],
+                [ 1.03175391,  0.32376836, -0.71109669],
+                [ 1.03175391, -0.24032896, -0.42497706],
+                [ 1.03175391,  1.07589811,  0.54782968],
+                [ 1.03175391,  1.07589811,  0.46199379],
+                [-0.96922337, -1.08647494,  0.29032201],
+                [-0.96922337,  1.16991433, -0.96860436],
+                [-0.96922337, -1.27450738, -1.22611203],
+                [-0.96922337,  0.98188189,  1.83536802],
+                [ 1.03175391, -1.08647494, -1.56945558],
+                [ 1.03175391,  0.0417197 , -0.25330529],
+                [ 1.03175391, -0.80442628, -0.76832062],
+                [ 1.03175391,  0.22975214, -0.36775314],
+                [ 1.03175391,  0.13573592,  1.49202446],
+                [ 1.03175391,  0.98188189, -1.05444025],
+                [ 1.03175391, -0.33434518, -0.76832062],
+                [-0.96922337,  0.88786567, -0.53942492],
+                [ 1.03175391, -0.71041006,  1.06284501],
+                [-0.96922337, -0.24032896,  0.20448612],
+                [-0.96922337, -1.08647494,  0.06142631],
+                [ 1.03175391,  1.07589811,  0.11865023],
+                [ 1.03175391,  2.01606031,  1.72092016],
+                [ 1.03175391,  0.13573592,  1.83536802],
+                [ 1.03175391, -0.8984425 , -1.08305221],
+                [ 1.03175391, -0.05229652, -0.51081295],
+                [ 1.03175391,  0.0417197 , -0.25330529],
+                [ 1.03175391, -0.4283614 , -0.76832062],
+                [ 1.03175391, -0.61639384,  0.17587416],
+                [-0.96922337,  0.0417197 , -0.56803688],
+                [-0.96922337,  0.32376836, -0.28191725],
+                [-0.96922337, -1.74458847, -1.25472399],
+                [-0.96922337, -0.8984425 ,  0.40476986],
+                [ 1.03175391,  1.82802787,  0.11865023],
+                [-0.96922337, -0.99245872,  0.40476986],
+                [-0.96922337,  0.60581701, -0.88276847],
+                [ 1.03175391,  0.13573592,  0.74811342],
+                [ 1.03175391, -0.33434518,  1.20590483],
+                [ 1.03175391, -1.74458847, -1.45500773],
+                [ 1.03175391,  1.07589811, -1.19750007],
+                [-0.96922337, -1.46253982, -0.19608136],
+                [-0.96922337, -0.24032896,  0.03281435],
+                [-0.96922337,  0.79384945,  0.74811342],
+                [ 1.03175391, -0.24032896,  1.09145698],
+                [-0.96922337,  1.92204409, -0.65387277],
+                [-0.96922337,  0.32376836, -0.19608136],
+                [-0.96922337, -1.65057225, -1.34055988],
+                [-0.96922337,  0.69983323, -1.36917184],
+                [ 1.03175391, -0.61639384, -0.11024547],
+                [ 1.03175391,  0.13573592,  0.20448612],
+                [-0.96922337, -0.4283614 ,  2.26454746],
+                [ 1.03175391,  1.35794677,  2.29315942],
+                [-0.96922337, -1.3685236 ,  0.34754594],
+                [ 1.03175391,  0.88786567, -1.42639577],
+                [-0.96922337, -0.71041006,  0.26171005],
+                [-0.96922337, -1.3685236 , -1.19750007]])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{} training a SVM classifier and Predicting }
+         
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{svm} \PY{k}{import} \PY{n}{SVC} \PY{c+c1}{\PYZsh{} \PYZdq{}Support vector classifier\PYZdq{}}
+         \PY{n}{SVmodel} \PY{o}{=} \PY{n}{SVC}\PY{p}{(}\PY{n}{class\PYZus{}weight} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{balanced}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{GridSearchCV}
+         \PY{n}{parameters} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{kernel}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{linear}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{poly}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rbf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{p}{[}\PY{l+m+mf}{0.01}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{]}\PY{p}{\PYZcb{}}
+         
+         \PY{n}{gs} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}\PY{n}{SVmodel}\PY{p}{,} \PY{n}{parameters}\PY{p}{)}
+         
+         \PY{n}{gs}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train1}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:} GridSearchCV(cv=None, error\_score='raise',
+                estimator=SVC(C=1.0, cache\_size=200, class\_weight='balanced', coef0=0.0,
+           decision\_function\_shape='ovr', degree=3, gamma='auto', kernel='rbf',
+           max\_iter=-1, probability=False, random\_state=None, shrinking=True,
+           tol=0.001, verbose=False),
+                fit\_params=None, iid=True, n\_jobs=1,
+                param\_grid=\{'kernel': ('linear', 'poly', 'rbf'), 'C': [0.01, 10, 100]\},
+                pre\_dispatch='2*n\_jobs', refit=True, return\_train\_score='warn',
+                scoring=None, verbose=0)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{predictions} \PY{o}{=} \PY{n}{gs}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{gs}\PY{o}{.}\PY{n}{best\PYZus{}params\PYZus{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:} \{'C': 10, 'kernel': 'rbf'\}
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{}metrics}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{classification\PYZus{}report}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{classification\PYZus{}report}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{predictions}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} accuracy on X\PYZus{}test}
+         \PY{n}{accuracy} \PY{o}{=} \PY{n}{gs}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}test1}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{acc in }\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{accuracy}\PY{p}{)}
+          
+         \PY{c+c1}{\PYZsh{} creating a confusion matrix}
+         \PY{n}{NbCM} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{crosstab}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{predictions}\PY{p}{)}
+         \PY{n}{NbCM}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+             precision    recall  f1-score   support
+
+          0       1.00      0.93      0.96        54
+          1       0.87      1.00      0.93        26
+
+avg / total       0.96      0.95      0.95        80
+
+acc in \% 0.95
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}21}]:} col\_0       0   1
+         Purchased        
+         0          50   4
+         1           0  26
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{Xtr}\PY{o}{=} \PY{n}{X\PYZus{}train}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EstimatedSalary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+         \PY{n}{X} \PY{o}{=} \PY{n}{sc}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{Xtr}\PY{p}{)}
+         \PY{n}{Y} \PY{o}{=} \PY{n}{y\PYZus{}train}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{c+c1}{\PYZsh{} figure number}
+         \PY{n}{fignum} \PY{o}{=} \PY{l+m+mi}{1}
+         
+         \PY{k}{for} \PY{n}{kernel} \PY{o+ow}{in} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{linear}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{poly}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rbf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+             \PY{n}{clf} \PY{o}{=} \PY{n}{SVC}\PY{p}{(}\PY{n}{kernel}\PY{o}{=}\PY{n}{kernel}\PY{p}{,} \PY{n}{gamma}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+             \PY{n}{clf}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} plot the line, the points, and the nearest vectors to the plane}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{fignum}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{clf}\PY{p}{(}\PY{p}{)}
+         
+             \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{clf}\PY{o}{.}\PY{n}{support\PYZus{}vectors\PYZus{}}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{clf}\PY{o}{.}\PY{n}{support\PYZus{}vectors\PYZus{}}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{80}\PY{p}{,}
+                         \PY{n}{facecolors}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{none}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{zorder}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{edgecolors}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{Y}\PY{p}{,} \PY{n}{zorder}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{cm}\PY{o}{.}\PY{n}{Paired}\PY{p}{,}
+                         \PY{n}{edgecolors}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+             \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tight}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{x\PYZus{}min} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{3}
+             \PY{n}{x\PYZus{}max} \PY{o}{=} \PY{l+m+mi}{3}
+             \PY{n}{y\PYZus{}min} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{3}
+             \PY{n}{y\PYZus{}max} \PY{o}{=} \PY{l+m+mi}{3}
+         
+             \PY{n}{XX}\PY{p}{,} \PY{n}{YY} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mgrid}\PY{p}{[}\PY{n}{x\PYZus{}min}\PY{p}{:}\PY{n}{x\PYZus{}max}\PY{p}{:}\PY{l+m+mi}{200}\PY{n}{j}\PY{p}{,} \PY{n}{y\PYZus{}min}\PY{p}{:}\PY{n}{y\PYZus{}max}\PY{p}{:}\PY{l+m+mi}{200}\PY{n}{j}\PY{p}{]}
+             \PY{n}{Z} \PY{o}{=} \PY{n}{clf}\PY{o}{.}\PY{n}{decision\PYZus{}function}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{c\PYZus{}}\PY{p}{[}\PY{n}{XX}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{YY}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} Put the result into a color plot}
+             \PY{n}{Z} \PY{o}{=} \PY{n}{Z}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{XX}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{fignum}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{pcolormesh}\PY{p}{(}\PY{n}{XX}\PY{p}{,} \PY{n}{YY}\PY{p}{,} \PY{n}{Z} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{cm}\PY{o}{.}\PY{n}{Paired}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{contour}\PY{p}{(}\PY{n}{XX}\PY{p}{,} \PY{n}{YY}\PY{p}{,} \PY{n}{Z}\PY{p}{,} \PY{n}{colors}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{linestyles}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                         \PY{n}{levels}\PY{o}{=}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{o}{.}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)}
+         
+             \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{n}{x\PYZus{}min}\PY{p}{,} \PY{n}{x\PYZus{}max}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{n}{y\PYZus{}min}\PY{p}{,} \PY{n}{y\PYZus{}max}\PY{p}{)}
+         
+             \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{yticks}\PY{p}{(}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+             \PY{n}{fignum} \PY{o}{=} \PY{n}{fignum} \PY{o}{+} \PY{l+m+mi}{1}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_26_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_26_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_26_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

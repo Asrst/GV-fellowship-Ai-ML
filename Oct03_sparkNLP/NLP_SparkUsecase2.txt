@@ -1,0 +1,3 @@
+Build a spam filter using Spark ML! Use the various NLP tools you ahve explored as well as a new classifier, Naive Bayes or any other classifier.
+
+We'll use a classic dataset for this SMS Spam Detection
